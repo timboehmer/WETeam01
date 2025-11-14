@@ -1,0 +1,39 @@
+nav {
+    background: #002060;
+    color: white;
+    width: auto;
+}
+
+.nav-link {
+    color: white !important;
+}
+
+.card{
+    margin: 20px;
+}
+
+.card-title {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+}
+
+.card-header {
+    font-size: larger;
+    font-weight: bold;
+}
+
+.footer {
+    poition: fixed;
+    margin-top: auto;
+    background: #002060;
+    font-size: medium;
+}
+
+.nav-text {
+    font-size: small;
+    width: 20em;
+}
+
+
+

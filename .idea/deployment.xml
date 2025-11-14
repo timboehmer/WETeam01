@@ -2,6 +2,13 @@
 <project version="4">
   <component name="PublishConfigData" autoUpload="Always" serverName="Space Team 01">
     <serverData>
+      <paths name="Local Team 01">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="/Applications/MAMP/htdocs/team01" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="Space Team 01">
         <serverdata>
           <mappings>
