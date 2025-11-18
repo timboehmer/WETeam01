@@ -2,13 +2,13 @@
 
 namespace App\Controllers;
 
-class Home extends BaseController
+class CreateSpalten extends BaseController
 {
     public function index()
     {
         echo view('templates/header');
         echo view('templates/menu');
-        echo view('startseite');
+        echo view('create-spalten');
         echo view('templates/footer');
     }
 }

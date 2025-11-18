@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="Space Team 01">
+  <component name="PublishConfigData" autoUpload="Always" serverName="Space Team 01" confirmBeforeDeletion="false">
+    <option name="confirmBeforeDeletion" value="false" />
     <serverData>
       <paths name="Local Team 01">
         <serverdata>
