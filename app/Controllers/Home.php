@@ -27,4 +27,20 @@ class Home extends BaseController
         echo view('create-spalten');
         echo view('templates/footer');
     }
+
+    public function tasks()
+    {
+        echo view('templates/header');
+        echo view('templates/menu');
+        echo view('tasks');
+        echo view('templates/footer');
+    }
+
+    public function boards()
+    {
+        echo view('templates/header');
+        echo view('templates/menu');
+        echo view('boards');
+        echo view('templates/footer');
+    }
 }

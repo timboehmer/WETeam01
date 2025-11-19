@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="en">
-<body>
-<script src="https://kit.fontawesome.com/92fd0d360c.js" crossorigin="anonymous"></script>
+
 
     <div class="card">
 
@@ -49,7 +48,6 @@
         </div>
         </div>
     </div>
-</body>
 
 
 </html>

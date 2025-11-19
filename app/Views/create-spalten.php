@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="en">
 
-<main>
     <form>
     <div class="card">
 
@@ -43,7 +42,6 @@
         </div>
     </div>
     </form>
-</main>
 
 </html>
 

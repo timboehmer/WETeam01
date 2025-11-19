@@ -1,7 +1,16 @@
+body {
+    font-family: 'Inter', Arial, sans-serif;
+}
+
+
 nav {
     background: #002060;
     color: white;
     width: auto;
+}
+
+.nav-item{
+    color:white;
 }
 
 .nav-link {
@@ -34,6 +43,8 @@ nav {
     font-size: small;
     width: 20em;
 }
+
+
 
 
 
