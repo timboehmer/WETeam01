@@ -7,5 +7,5 @@ use CodeIgniter\Router\RouteCollection;
  */
 
 $routes->get('/', 'Home::index');
-$routes->get('spalten', 'Spalten::index');
-$routes->get(from: 'create-spalten', to: 'CreateSpalten::index');
+$routes->get('spalten', 'Home::spalten');
+$routes->get(from: 'create-spalten', to: 'Home::createspalten');
