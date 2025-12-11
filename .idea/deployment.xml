@@ -15,6 +15,10 @@
           <mappings>
             <mapping deploy="/web" local="$PROJECT_DIR$" web="/" />
           </mappings>
+          <excludedPaths>
+            <excludedPath path="/web/app/Config/Database.php" />
+            <excludedPath local="true" path="$PROJECT_DIR$/app/Config/Database.php" />
+          </excludedPaths>
         </serverdata>
       </paths>
     </serverData>

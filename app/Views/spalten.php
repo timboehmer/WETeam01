@@ -7,7 +7,7 @@
         <div class="card-header">Spalten</div>
         <div class="card-body p-2 mt-2">
 
-        <a href="<?= base_url('create-spalten') ?>" class="btn btn-primary active mb-2" role="button" aria-pressed="true">Erstellen</a>
+        <a href="<?= base_url('spalten/createspalten') ?>" class="btn btn-primary active mb-2" role="button" aria-pressed="true">Erstellen</a>
         <div class="table-responsive">
             <table class="table table-bordered table-striped">
                 <thead>
