@@ -7,9 +7,9 @@
             </a>
             <ul class="nav nav-pills ms-auto d-flex flex-row">
 
-                <li class="nav-item"><a class="nav-link" href="<?=  base_url('tasks')?>">Tasks</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?=  base_url('boards')?>">Boards</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= base_url('spalten') ?>">Spalten</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?=  base_url('tasks')?>"><i class="fa-solid fa-clipboard-list"></i> Tasks</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?=  base_url('boards')?>"><i class="fa-solid fa-clipboard"></i> Boards</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?= base_url('spalten') ?>"><i class="fa-solid fa-table-columns"></i> Spalten</a></li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa-solid fa-gear"></i></a>
