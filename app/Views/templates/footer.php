@@ -1,6 +1,6 @@
 
-</body>
-<footer class="footer fixed-bottom mt-auto">
+
+<footer class="footer mt-auto">
     <nav class="navbar navbar-expand-lg">
 
         <div class="container-fluid">
@@ -15,4 +15,5 @@
         </div>
     </nav>
 </footer>
-
+</body>
+</html>

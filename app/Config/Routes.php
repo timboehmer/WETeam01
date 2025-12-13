@@ -7,5 +7,4 @@ use CodeIgniter\Router\RouteCollection;
  */
 
 $routes->get('/', 'Home::index');
-$routes->get('tasks', 'Home::tasks');
 $routes->get('boards', 'Home::boards');

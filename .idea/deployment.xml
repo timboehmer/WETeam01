@@ -18,6 +18,7 @@
           <excludedPaths>
             <excludedPath path="/web/app/Config/Database.php" />
             <excludedPath local="true" path="$PROJECT_DIR$/app/Config/Database.php" />
+            <excludedPath path="/web/app/Config/App.php" />
           </excludedPaths>
         </serverdata>
       </paths>

@@ -45,7 +45,7 @@ Options -Indexes
 </IfModule>
 
     #Enable CodeIgniter Debugging Icon
-    #SetEnv CI_ENVIRONMENT development
+    # SetEnv CI_ENVIRONMENT development
 
 # Disable server signature start
 ServerSignature Off

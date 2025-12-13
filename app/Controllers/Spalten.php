@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-class Spalten extends BaseController
+class Spalten extends Home
 {
     public function getIndex()
     {
