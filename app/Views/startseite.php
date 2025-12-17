@@ -7,11 +7,15 @@
 
         <div class="card-header text-center bg-success text-white">Team 01</div>
 
-        <div class="card-body">
-            <p class="card-text text-center">Projekt Webentwicklung 2025</p>
+        <div class="card-body text-center">
+            <p class="card-text">Projekt Webentwicklung 2025</p>
+            <hr>
+            <p class="card-text"><b>Übung 04</b></p>
+            <div class="btn-group mt-2 ms-2 align-center">
+                <a href="<?=  base_url('personen')?>"><button class="btn btn-primary mb-2" type="button" value="button">Personen-Tabelle öffnen</button></a>        </div>
         </div>
         </div>
-    </div>
+
 </main>
 
 </html>

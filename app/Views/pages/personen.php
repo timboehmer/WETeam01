@@ -1,20 +1,21 @@
 <div class="container-fluid"><div class="container">
         <div class="card me-2 mt-4">
             <legend class="card-header">
-                <div class="d-flex justify-content-between">
-                    <div class="h5"><strong><h1>Dynamische Personen-Tabelle</h1></strong></div>
-                    <div class="h5"><strong></strong></div>
+                <div class="d-flex justify-content-between mt-2">
+                    <div class="h5"><strong><h1>Personen-Tabelle</h1></strong></div>
                 </div>
             </legend>
             <div class="card-body">
 
-                <div id="toolbar" class="btn-group mt-2 ms-2">
-                    <a href="#"><button class="btn btn-primary mb-2" type="button" value="button">Toolbar</button></a>
+                <div id="toolbar" >
+                    <a href="<?=base_url('/personen/index_edit')?>">
+                        <button class="btn btn-primary mb-2" type="button" name="btnNeu" id="btnNeu">
+                            <i class="fa-solid fa-file-pen"></i> Bearbeiten</button>
+                    </a>
                 </div>
 
-                <table class="table table-responsive table-striped table-hover d-table"
+                <table class="table table-responsive table-bordered table-striped table-hover w-100 d-block d-md-table"
                        data-show-columns="true"
-                       showColumnsToggleAll="true"
                        data-show-toggle="true"
                        data-toggle="table"
                        data-search="true"
@@ -29,7 +30,6 @@
                         <th>Straße</th>
                         <th>PLZ</th>
                         <th>Ort</th>
-                        <th class="text-end">Bearbeiten</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -42,16 +42,6 @@
                                 <td><?= $person['strasse'] ?></td>
                                 <td><?= $person['plz'] ?></td>
                                 <td><?= $person['ort'] ?></td>
-                                <td>
-                                    <div class="btn-group">
-                                        <a href="<?= base_url('/personen/ced_edit/' . $person['id'] . '/1/')?>">
-                                            <button type='button' name='btnBearbeiten' id='btnBearbeiten' class='btn'><i class="fas fa-edit text-primary"></i></button>
-                                        </a>
-                                        <a href="<?= base_url()?>/personen/ced_edit/<?= $person['id'] ?>/2/">
-                                            <button type='submit' name='btnLoeschen' id='btnLoeschen' class='btn'><i style="color: Dodgerblue;" class="fas fa-trash"></i></button>
-                                        </a>
-                                    </div>
-                                </td>
                             </tr>
                         <?php endforeach; ?>
                     <?php endif; ?>
