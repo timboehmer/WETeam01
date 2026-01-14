@@ -3,7 +3,7 @@
     <div class="card mt-4">
         <legend class="card-header">
             <div class="d-flex justify-content-between mt-2">
-                <div class="h5"><strong><h1><?= $title; ?></h1></strong></div>
+                <div class="h5"><strong><h1><i class="fa-solid fa-user-pen"></i> <?= $title; ?></h1></strong></div>
                 <div class="h5"><strong></strong></div>
             </div>
         </legend>
@@ -12,7 +12,7 @@
             <div id="toolbar" >
                 <a href="<?=base_url('/personen/ced_edit/0/0/')?>">
                     <button class="btn btn-primary mb-2" type="button" name="btnNeu" id="btnNeu">
-                        <i class="fas fa-plus-square"></i> Neu</button>
+                        <i class="fa-solid fa-user-plus"></i> Neu</button>
                 </a>
             </div>
 
