@@ -22,7 +22,7 @@
                 <div class="form-group row mb-2">
                     <label for="TaskartenID" class="col-sm-2 col-form-label">Taskart:</label>
                     <div class="col-sm-10">
-                        <select name="taskartenid" class="form-select" required>
+                        <select name="taskartenid" class="form-select">
                             <option value="">Taskart auswählen</option>
                             <option value="1" <?= (isset($tasks['taskartenid']) && $tasks['taskartenid'] == 1) ? 'selected' : '' ?>>Aufgabe</option>
                             <option value="2" <?= (isset($tasks['taskartenid']) && $tasks['taskartenid'] == 2) ? 'selected' : '' ?>>Bug</option>
