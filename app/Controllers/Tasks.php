@@ -54,14 +54,26 @@ class Tasks extends Home
         // Task ändern
         if(isset($_POST['btnSpeichern'] )) {
 
-            // Daten speichern
-            if(isset($_POST['id']) && $_POST['id'] != '') {
-                $this->TasksModel->getUpdateTask();
+            if($this->validation->run($_POST, 'taskbearbeiten')){
+                if(isset($_POST['id']) && $_POST['id'] != '') {
+                    $this->TasksModel->getUpdateTask();
+                }
+                else {
+                    $this->TasksModel->getCreateTask();
+                }
+                return redirect()->to(base_url('tasks/index_edit/'));
+            } else {
+
+                $data['tasks'] = $_POST;
+                $data['error'] = $this->validation->getErrors();
+
+                $data['todo'] = (isset($_POST['id']) && $_POST['id'] != '') ? 1 : 0;
+
+                echo view('templates/header');
+                echo view('templates/menu');
+                echo view('tasks/edit', $data);
+                echo view('templates/footer');
             }
-            else {
-                $this->TasksModel->getCreateTask();
-            }
-            return redirect()->to(base_url('tasks/index_edit/'));
 
         }
         // Task löschen

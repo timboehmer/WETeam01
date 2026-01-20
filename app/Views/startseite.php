@@ -8,7 +8,7 @@
         <div class="card-header text-center bg-success text-white">Team 01</div>
 
         <div class="card-body text-center">
-            <p class="card-text">Projekt Webentwicklung 2025</p>
+            <p class="card-text">Projekt Webentwicklung 2025/26</p>
             <hr>
             <p class="card-text"><b>Übung 04</b></p>
             <div class="btn-group mt-2 ms-2 align-center">
