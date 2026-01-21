@@ -19,6 +19,11 @@
             <div class="btn-group mt-2 ms-2 align-center">
                 <a href="<?=  base_url('tasks')?>"><button class="btn btn-primary mb-2" type="button" value="button">Tasks öffnen</button></a>
             </div>
+            <hr>
+            <p class="card-text"><b>Übung 06</b></p>
+            <div class="btn-group mt-2 ms-2 align-center">
+                <a href="<?=  base_url('spalten')?>"><button class="btn btn-primary mb-2" type="button" value="button">Spalten öffnen</button></a>
+            </div>
         </div>
         </div>
 

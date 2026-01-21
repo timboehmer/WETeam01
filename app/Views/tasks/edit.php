@@ -9,6 +9,7 @@
         <div class="card-body">
 
             <form action="<?= base_url('tasks/submit_edit') ?>" method="post">
+                <input type="hidden" name="id" value="<?= isset($tasks['id']) ? $tasks['id'] : '' ?>">
 
                 <div class="form-group row mb-2">
                     <label for="Bezeichnung" class="col-sm-2 col-form-label">Bezeichnung:</label>
@@ -62,32 +63,30 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="form-group row mb-2">
+                    <label for="Erinnerung" class="col-sm-2 col-form-label">Erinnerung:</label>
+                    <div class="col-sm-10">
+                        <select name="erinnerung" id="erinnerung_select" class="form-select <?=(isset($error['erinnerung']))?'is-invalid':''?>">
+                            <option value="0" <?= (isset($tasks['erinnerung']) && $tasks['erinnerung'] == 0) ? 'selected' : '' ?>>Nein</option>
+                            <option value="1" <?= (isset($tasks['erinnerung']) && $tasks['erinnerung'] == 1) ? 'selected' : '' ?>>Ja</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row mb-2" id="reminder_row" style="display: none;">
                     <label for="Erinnerungsdatum" class="col-sm-2 col-form-label">Erinnerungsdatum:</label>
                     <div class="col-sm-10">
                         <input type="datetime-local"
                                name="erinnerungsdatum"
                                class="form-control <?=(isset($error['erinnerungsdatum']))?'is-invalid':''?>"
-                               value="<?= isset($task['erinnerungsdatum']) ? date('Y-m-d\TH:i', strtotime($task['erinnerungsdatum'])) : '' ?>">
+                               value="<?= (isset($tasks['erinnerungsdatum']) && $tasks['erinnerungsdatum'] != '') ? date('Y-m-d\TH:i', strtotime($tasks['erinnerungsdatum'])) : '' ?>">
                         <div class="invalid-feedback">
                             <?=(isset($error['erinnerungsdatum'])) ?$error['erinnerungsdatum']:''?>
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group row mb-2">
-                    <label for="Erinnerung" class="col-sm-2 col-form-label">Erinnerung:</label>
-                    <div class="col-sm-10">
-                        <select name="erinnerung" class="form-select <?=(isset($error['erinnerung']))?'is-invalid':''?>">
-                            <option value="0" <?= (isset($tasks['erinnerung']) && $tasks['erinnerung'] == 0) ? 'selected' : '' ?>>Nein</option>
-                            <option value="1" <?= (isset($tasks['erinnerung']) && $tasks['erinnerung'] == 1) ? 'selected' : '' ?>>Ja</option>
-                        </select>
-                        <div class="invalid-feedback">
-                            <?=(isset($error['erinnerung'])) ?$error['erinnerung']:''?>
-                        </div>
-                    </div>
-                </div>
+
                 <div class="form-group row mb-2">
                     <label for="Notizen" class="col-sm-2 col-form-label">Notizen:</label>
                     <div class="col-sm-10">
@@ -123,4 +122,25 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const reminderSelect = document.getElementById('erinnerung_select');
+        const reminderRow = document.getElementById('reminder_row');
+
+        function toggleDateFields() {
+            if (reminderSelect.value == "1") {
+                reminderRow.style.display = "flex"; // Anzeigen
+            } else {
+                reminderRow.style.display = "none";  // Ausblenden
+            }
+        }
+
+        // Beim Laden prüfen
+        toggleDateFields();
+
+        // Bei Änderung umschalten
+        reminderSelect.addEventListener('change', toggleDateFields);
+    });
+</script>
 

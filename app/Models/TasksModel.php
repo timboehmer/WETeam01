@@ -45,7 +45,7 @@ class TasksModel extends Model
 
         $this->tasks = $this->db->table('tasks');
         $this->tasks->where('tasks.id', $_POST['id']);
-        $this->tasks->insert(array(
+        $this->tasks->update(array(
             'personenid'       => $_POST['personenid'],
             'taskartenid'      => $_POST['taskartenid'],
             'spaltenid'        => $_POST['spaltenid'],

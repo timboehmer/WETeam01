@@ -26,7 +26,8 @@
                 <div class="form-group row mb-2">
                     <label for="SortID" class="col-sm-2 col-form-label">SortID:</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control <?=(isset($error['sortid']))?'is-invalid':''?>" id="sortid" name="sortid" value="<?= $spalten['sortid'] ?? '' ?>" >
+                        <input type="text" class="form-control <?=(isset($error['sortid']))?'is-invalid':''?>" id="sortid" name="sortid" placeholder="Sortiernummer der Spalte"
+                               value="<?= $spalten['sortid'] ?? '' ?>" >
                         <div class="invalid-feedback">
                             <?=(isset($error['sortid'])) ?$error['sortid']:''?>
                         </div>

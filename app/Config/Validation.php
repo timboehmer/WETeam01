@@ -42,7 +42,7 @@ class Validation extends BaseConfig
         'personenid' => 'required|integer',
         'taskartenid' => 'required|integer',
         'spaltenid' => 'required|integer',
-        'erinnerungsdatum' => 'valid_date[Y-m-d H:i:s]',
+        'erinnerungsdatum' => 'permit_empty',
         'notizen' => 'max_length[1000]',
         'erinnerung' => 'in_list[0,1]',
     ];
@@ -65,9 +65,7 @@ class Validation extends BaseConfig
             'required' => 'Bitte geben Sie eine SpaltenID ein.',
             'integer' => 'Die SpaltenID muss eine natürliche Zahl größer als Null sein.',
         ],
-        'erinnerungsdatum' => [
-            'valid_date' => 'Das Erinnerungsdatum muss im Format JJJJ-MM-TT HH:MM:SS vorliegen.',
-        ],
+
         'notizen' => [
             'max_length' => 'Die Notizen dürfen maximal 1000 Zeichen lang sein.',
         ],

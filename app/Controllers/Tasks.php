@@ -15,6 +15,7 @@ class Tasks extends Home
 
     public function getIndex()
     {
+        $data['title'] = "Tasks";
         echo view('templates/header');
         echo view('templates/menu');
         $data['tasks'] = $this->TasksModel->gettasks();
