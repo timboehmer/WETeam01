@@ -1,78 +1,133 @@
+<div class="container-fluid py-4">
 
-<div class="container">
-    <div class="card mt-4">
-        <legend class="card-header">
-            <div class="d-flex justify-content-between mt-2">
-                <div class="h5"><strong><h1><i class="fa-solid fa-file-pen"></i> <?= $title; ?></h1></strong></div>
-                <div class="h5"><strong></strong></div>
-            </div>
-        </legend>
-        <div class="card-body">
+    <div class="d-flex justify-content-between align-items-center mb-4 px-2">
 
-            <div id="toolbar" >
-                <a href="<?=base_url('/tasks/ced_edit/0/0/')?>">
-                    <button class="btn btn-primary mb-2" type="button" name="btnNeu" id="btnNeu">
-                        <i class="fa-solid fa-file-circle-plus"></i> Neu</button>
-                </a>
-            </div>
+        <div class="d-flex align-items-center gap-3">
+            <h1 class="mb-0"><i class="fa-solid fa-list-check"></i> <?= esc($title) ?></h1>
 
-            <table class="table table-responsive table-bordered table-striped table-hover w-100 d-block d-md-table"
-                   data-show-columns="true"
-                   data-show-toggle="true"
-                   data-toggle="table"
-                   data-search="true"
-                   data-sort-stable="true"
-                   data-toolbar="#toolbar">
-
-                <thead align="left">
-                <tr>
-                    <th data-field="id" data-sortable="true">TaskID</th>
-                    <th data-field="bezeichnung">Bezeichnung</th>
-                    <th data-field="person" data-sortable="true">PersonenID</th>
-                    <th data-field="status" data-sortable="true">Status</th>
-                    <th data-field="datum" data-sortable="true">Erinnerungsdatum</th>
-                    <th data-field="erinnerung">Erinnerung</th>
-                    <th data-field="notizen">Notizen</th>
-                    <th data-field="action">Aktion</th>
-                </tr>
-                </thead>
-                <tbody>
-                <? foreach( $tasks as $item ): ?>
-                    <tr>
-                        <td><?= $item['id'] ?></td>
-                        <td><?= $item['tasks'] ?></td>
-                        <td><?= $item['personenid'] ?></td>
-                        <td>
-                            <?php
-                            switch($item['spaltenid']) {
-                                case 1: echo "ToDo"; break;
-                                case 2: echo "In Bearbeitung"; break;
-                                case 3: echo "Erledigt"; break;
-                                default: echo "Unbekannt (" . $item['spaltenid'] . ")";
-                            }
-                            ?>
-                        </td>
-                        <td><?= $item['erinnerungsdatum'] ?></td>
-                        <td>
-                            <?= $item['erinnerung'] == 1 ? '<span>Ja</span>' : 'Nein' ?>
-                        </td>
-                        <td><?= $item['notizen']?></td>
-                        <td>
-                            <div class="btn-group">
-                                <a href="<?=base_url('/tasks/ced_edit/' . $item['id'] . '/1/')?>">
-                                    <button type='button' name='btnBearbeiten' id='btnBearbeiten' class='btn'><i style="color: Dodgerblue;" class="fas fa-edit"></i></button>
+            <div class="dropdown">
+                <button class="btn btn-outline-dark dropdown-toggle" type="button" id="boardDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    Board wechseln
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="boardDropdown">
+                    <?php if(!empty($boards)): ?>
+                        <?php foreach($boards as $board): ?>
+                            <li>
+                                <a class="dropdown-item <?= ($board['id'] == $aktuellesBoardID) ? 'active' : '' ?>"
+                                   href="<?= base_url('tasks') ?>?boardid=<?= $board['id'] ?>">
+                                    <?= esc($board['board']) ?>
                                 </a>
-                                <a href="<?=base_url('/tasks/ced_edit/' . $item['id'] . '/2/')?>">
-                                    <button type='submit' name='btnLoeschen' id='btnLoeschen' class='btn'><i style="color: Dodgerblue;" class="fas fa-trash"></i></button>
+                            </li>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <li><span class="dropdown-item text-muted">Keine Boards vorhanden</span></li>
+                    <?php endif; ?>
+                </ul>
+            </div>
+        </div>
+
+        <a href="<?= base_url('tasks/ced_edit/0/0') ?>?boardid=<?= $aktuellesBoardID ?>" class="btn btn-primary">
+            <i class="fa-solid fa-plus"></i> Neu
+        </a>
+    </div>
+
+    <div class="row flex-nowrap overflow-auto pb-4">
+
+        <?php if (empty($spalten)): ?>
+            <div class="col-12">
+                <div class="alert alert-warning">
+                    Es wurden keine Spalten gefunden.
+                </div>
+            </div>
+        <?php else: ?>
+
+            <?php foreach ($spalten as $spalte): ?>
+
+                <div class="col" style="min-width: 350px;">
+
+                    <div class="card bg-light">
+
+                        <div class="card-header fw-bold text-center">
+                            <?= esc($spalte['spalte']) ?>
+                            <?php if(!empty($spalte['spaltenbeschreibung'])): ?>
+                                <div class="card-subtitle text-muted small">
+                                    <?= esc($spalte['spaltenbeschreibung']) ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+
+                        <div class="card-body d-flex flex-column">
+
+                            <?php foreach ($tasks as $task): ?>
+                                <?php if ($task['spaltenid'] == $spalte['id']): ?>
+
+                                    <div class="card shadow-sm mb-3">
+                                        <div class="card-body p-3">
+
+                                            <div class="d-flex justify-content-between align-items-start">
+                                                <h5 class="card-title fw-bold mb-1">
+                                                    <i class="fa-solid <?= $task['taskartenicon'] ?>"></i> <?= esc($task['tasks']) ?>
+                                                </h5>
+
+                                                <div class="dropdown">
+                                                    <button class="btn btn-link btn-sm text-muted p-0" type="button" data-bs-toggle="dropdown">
+                                                        <i class="fa-solid fa-ellipsis"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li>
+                                                            <a class="dropdown-item" href="<?= base_url('tasks/ced_edit/' . $task['id'] . '/1') ?>">
+                                                                <i class="fa-solid fa-pen text-primary me-2"></i> Bearbeiten
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item text-danger" href="<?= base_url('tasks/ced_edit/' . $task['id'] . '/2') ?>">
+                                                                <i class="fa-solid fa-trash me-2"></i> Löschen
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <p class="card-text text-muted small mb-3">
+                                                <?= esc($task['notizen']) ?>
+                                            </p>
+
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <small class="text-secondary">
+                                                    <i class="fa-regular fa-calendar-days me-1"></i>
+                                                    <?= date('d.m.Y', strtotime($task['erstelldatum'])) ?>
+                                                </small>
+
+                                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center"
+                                                     style="width: 30px; height: 30px; font-size: 12px;"
+                                                     title="Person ID: <?= $task['personenid'] ?>">
+                                                    <?= $task['personenid'] ?>
+                                                </div>
+                                            </div>
+
+                                            <?php if ($task['erinnerung'] == 1): ?>
+                                                <div class="mt-2 text-danger small">
+                                                    <i class="fa-solid fa-bell"></i> <?= date('d.m.Y H:i', strtotime($task['erinnerungsdatum'])) ?>
+                                                </div>
+                                            <?php endif; ?>
+
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+
+                            <div class="mt-auto pt-3">
+                                <a href="<?= base_url('tasks/ced_edit/0/0/' . $spalte['id']) ?>"
+                                   class="btn btn-outline-secondary w-100">
+                                    <i class="fa-solid fa-plus"></i> Task hinzufügen
                                 </a>
                             </div>
-                        </td>
-                    </tr>
-                <? endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
 
-                </tbody>
-            </table>
+        <?php endif; ?>
 
-        </div>
     </div>
 </div>

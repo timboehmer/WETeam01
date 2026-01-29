@@ -3,45 +3,136 @@
 namespace App\Controllers;
 
 use App\Models\TasksModel;
+use App\Models\SpaltenModel;
+use App\Models\BoardsModel;
+use App\Models\TaskartenModel;
 
 class Tasks extends Home
 {
     protected $tasksModel;
+    protected $taskartenModel;
+    protected $boardsModel;
+    protected $spaltenModel;
 
     public function __construct()
     {
         $this->TasksModel = new TasksModel();
+        $this->SpaltenModel = new SpaltenModel();
+        $this->BoardsModel = new BoardsModel();
+        $this->taskartenModel = new TaskartenModel();
     }
 
     public function getIndex()
     {
-        $data['title'] = "Tasks";
+        $boards = $this->BoardsModel->getBoards();
+        $data['boards'] = $boards;
+
+        $boardID = $this->request->getVar('boardid');
+
+        if (empty($boardID) && !empty($boards)) {
+            $boardID = $boards[0]['id'];
+        }
+        $data['aktuellesBoardID'] = $boardID;
+
+        $alleSpalten = $this->SpaltenModel->getspalten();
+        $gefilterteSpalten = [];
+
+        if (!empty($alleSpalten)) {
+            foreach ($alleSpalten as $spalte) {
+                if (isset($spalte['boardsid']) && $spalte['boardsid'] == $boardID) {
+                    $gefilterteSpalten[] = $spalte;
+                }
+            }
+        }
+        $data['spalten'] = $gefilterteSpalten;
+
+        $data['tasks'] = $this->TasksModel->gettasks();
+
+        $data['title'] = "Taskboard";
+        foreach ($boards as $board) {
+            if ($board['id'] == $boardID) {
+                $data['title'] = $board['board'];
+                break;
+            }
+        }
+
         echo view('templates/header');
         echo view('templates/menu');
-        $data['tasks'] = $this->TasksModel->gettasks();
-        echo view('pages/tasks', $data);
+
+        echo view('tasks/list_edit', $data);
         echo view('templates/footer');
     }
-    public function getIndex_edit() {
+    public function getIndex_edit()
+    {
+        $boards = $this->BoardsModel->getBoards();
+        $data['boards'] = $boards;
 
-        $data['title'] = "Taskdaten bearbeiten";
+        $boardID = $this->request->getVar('boardid');
+
+        if (empty($boardID) && !empty($boards)) {
+            $boardID = $boards[0]['id'];
+        }
+        $data['aktuellesBoardID'] = $boardID;
+
+        $alleSpalten = $this->SpaltenModel->getspalten();
+        $gefilterteSpalten = [];
+
+        if (!empty($alleSpalten)) {
+            foreach ($alleSpalten as $spalte) {
+                if (isset($spalte['boardsid']) && $spalte['boardsid'] == $boardID) {
+                    $gefilterteSpalten[] = $spalte;
+                }
+            }
+        }
+        $data['spalten'] = $gefilterteSpalten;
+
         $data['tasks'] = $this->TasksModel->gettasks();
 
-        echo view( 'templates/header');
-        echo view('templates/menu');
-        echo view('tasks/list_edit', $data);
-        echo view( 'templates/footer');
+        $data['title'] = "Taskboard";
+        foreach ($boards as $board) {
+            if ($board['id'] == $boardID) {
+                $data['title'] = $board['board'];
+                break;
+            }
+        }
 
+        echo view('templates/header');
+        echo view('templates/menu');
+
+        echo view('tasks/list_edit', $data);
+        echo view('templates/footer');
     }
 
-    public function getCed_edit($id = 0, $todo = 0) {
+    public function getCed_edit($id = 0, $todo = 0, $spaltenid = 0) {
 
         // Todo: 0 = create, 1 = Bearbeiten, 2 = löschen
         $data['todo'] = $todo;
-        // Person bearbeiten oder löschen
+        $data['spaltenid'] = $spaltenid;
+        $data['tasks'] = [];
 
-        if($id > 0 && ($todo == 1 || $todo == 2 ))
+        $boardID = $this->request->getVar('boardid');
+
+        if($id > 0 && ($todo == 1 || $todo == 2 )){
             $data['tasks'] = $this->TasksModel->gettasks($id);
+            $data['tasks'] = $task;
+
+            $aktuelleSpalte = $this->SpaltenModel->getspalten($task['spaltenid']);
+            $boardID = $aktuelleSpalte['boardsid'] ?? null;
+        }
+        elseif ($spaltenid > 0 && empty($boardID)){
+            $aktuelleSpalte = $this->SpaltenModel->getspalten($spaltenid);
+            $boardID = $aktuelleSpalte['boardsid'] ?? null;
+        }
+
+        $data['taskarten'] = $this->taskartenModel->gettaskarten();
+
+        if($boardID){
+            $data['spalten'] = $this->SpaltenModel->getSpaltenByBoardId($boardID);
+            $data['boardid'] = $boardID;
+        }else {
+            $data['spalten'] = [];
+        }
+
 
         echo view( 'templates/header');
         echo view('templates/menu');

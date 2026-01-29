@@ -1,15 +1,16 @@
 <div class="container">
     <div class="card bg-light mt-4">
-        <legend class="card-header">
+        <div class="card-header">
             <div class="d-flex justify-content-between">
                 <div class="h5"><strong>Task <?= isset($_POST['btnLoeschen']) ? ' löschen' : ' bearbeiten oder neu erstellen'?></strong></div>
                 <div class="h5"><strong></strong></div>
             </div>
-        </legend>
+        </div>
         <div class="card-body">
 
             <form action="<?= base_url('tasks/submit_edit') ?>" method="post">
                 <input type="hidden" name="id" value="<?= isset($tasks['id']) ? $tasks['id'] : '' ?>">
+                <input type="hidden" name="boardid" value="<?= $boardid ?? '' ?>">
 
                 <div class="form-group row mb-2">
                     <label for="Bezeichnung" class="col-sm-2 col-form-label">Bezeichnung:</label>
@@ -24,16 +25,20 @@
                 </div>
 
                 <div class="form-group row mb-2">
-                    <label for="TaskartenID" class="col-sm-2 col-form-label">Taskart:</label>
+                    <label for="taskartenid" class="col-sm-2 col-form-label">Taskart:</label>
                     <div class="col-sm-10">
-                        <select name="taskartenid" class="form-select <?=(isset($error['taskartenid']))?'is-invalid':''?>" required>
+                        <select name="taskartenid" class="form-select <?= ($error['taskartenid'] ?? '') ? 'is-invalid' : '' ?>">
                             <option value="">Taskart auswählen</option>
-                            <option value="1" <?= (isset($tasks['taskartenid']) && $tasks['taskartenid'] == 1) ? 'selected' : '' ?>>Aufgabe</option>
-                            <option value="2" <?= (isset($tasks['taskartenid']) && $tasks['taskartenid'] == 2) ? 'selected' : '' ?>>Bug</option>
-                            <option value="3" <?= (isset($tasks['taskartenid']) && $tasks['taskartenid'] == 3) ? 'selected' : '' ?>>Idee</option>
+
+                            <?php foreach($taskarten as $art): ?>
+                                <option value="<?= $art['id'] ?>" <?= ($tasks['taskartenid'] ?? '') == $art['id'] ? 'selected' : '' ?>>
+                                    <?= esc($art['taskart']) ?>
+                                </option>
+                            <?php endforeach; ?>
+
                         </select>
                         <div class="invalid-feedback">
-                            <?=(isset($error['taskartenid'])) ?$error['taskartenid']:''?>
+                            <?= $error['taskartenid'] ?? '' ?>
                         </div>
                     </div>
                 </div>
@@ -51,15 +56,23 @@
                 </div>
 
                 <div class="form-group row mb-2">
-                    <label for="SpaltenID" class="col-sm-2 col-form-label">Status (SpaltenID):</label>
+                    <label for="spaltenid" class="col-sm-2 col-form-label">Status (Spalte):</label>
                     <div class="col-sm-10">
-                        <select name="spaltenid" class="form-select <?=(isset($error['spaltenid']))?'is-invalid':''?>" required>
-                            <option value="1" <?= (isset($tasks['spaltenid']) && $tasks['spaltenid'] == 1) ? 'selected' : '' ?>>ToDo</option>
-                            <option value="2" <?= (isset($tasks['spaltenid']) && $tasks['spaltenid'] == 2) ? 'selected' : '' ?>>In Bearbeitung</option>
-                            <option value="3" <?= (isset($tasks['spaltenid']) && $tasks['spaltenid'] == 3) ? 'selected' : '' ?>>Erledigt</option>
+                        <select name="spaltenid" class="form-select <?= ($error['spaltenid'] ?? '') ? 'is-invalid' : '' ?>">
+
+                            <?php
+                            $selectedId = $tasks['spaltenid'] ?? $spaltenid ?? '';
+                            ?>
+
+                            <?php foreach($spalten as $spalte): ?>
+                                <option value="<?= $spalte['id'] ?>" <?= $selectedId == $spalte['id'] ? 'selected' : '' ?>>
+                                    <?= esc($spalte['spalte']) ?>
+                                </option>
+                            <?php endforeach; ?>
+
                         </select>
                         <div class="invalid-feedback">
-                            <?=(isset($error['spaltenid'])) ?$error['spaltenid']:''?>
+                            <?= $error['spaltenid'] ?? '' ?>
                         </div>
                     </div>
                 </div>
@@ -76,9 +89,7 @@
                 <div class="form-group row mb-2" id="reminder_row" style="display: none;">
                     <label for="Erinnerungsdatum" class="col-sm-2 col-form-label">Erinnerungsdatum:</label>
                     <div class="col-sm-10">
-                        <input type="datetime-local"
-                               name="erinnerungsdatum"
-                               class="form-control <?=(isset($error['erinnerungsdatum']))?'is-invalid':''?>"
+                        <input type="datetime-local" name="erinnerungsdatum" class="form-control <?=(isset($error['erinnerungsdatum']))?'is-invalid':''?>"
                                value="<?= (isset($tasks['erinnerungsdatum']) && $tasks['erinnerungsdatum'] != '') ? date('Y-m-d\TH:i', strtotime($tasks['erinnerungsdatum'])) : '' ?>">
                         <div class="invalid-feedback">
                             <?=(isset($error['erinnerungsdatum'])) ?$error['erinnerungsdatum']:''?>
@@ -130,16 +141,14 @@
 
         function toggleDateFields() {
             if (reminderSelect.value == "1") {
-                reminderRow.style.display = "flex"; // Anzeigen
+                reminderRow.style.display = "flex";
             } else {
-                reminderRow.style.display = "none";  // Ausblenden
+                reminderRow.style.display = "none";
             }
         }
 
-        // Beim Laden prüfen
         toggleDateFields();
 
-        // Bei Änderung umschalten
         reminderSelect.addEventListener('change', toggleDateFields);
     });
 </script>

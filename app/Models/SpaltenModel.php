@@ -12,7 +12,11 @@ class SpaltenModel extends Model
     public function getSpalten($spalten_id = NULL) {
         $this->spalten = $this->db->table('spalten');
 
-        $this->spalten->select('*');
+        $this->spalten->select('spalten.*, boards.board as boardname');
+        $this->spalten->join('boards', 'spalten.boardsid = boards.id', 'left');
+
+        $this->spalten->orderBy('boards.board', 'ASC');
+        $this->spalten->orderBy('spalten.sortid', 'ASC');
 
         IF ($spalten_id != NULL)
             $this->spalten->where('spalten.id', $spalten_id);
@@ -55,6 +59,14 @@ class SpaltenModel extends Model
         $this->spalten = $this->db->table('spalten');
         $this->spalten->where('spalten.id', $_POST['id']);
         $this->spalten->delete();
+    }
+
+    public function getSpaltenByBoardId($board_id) {
+        return $this->db->table('spalten')
+            ->where('boardsid', $board_id)
+            ->orderBy('sortid', 'ASC')
+            ->get()
+            ->getResultArray();
     }
 
 

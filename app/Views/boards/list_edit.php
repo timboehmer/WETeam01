@@ -3,16 +3,16 @@
     <div class="card mt-4">
         <legend class="card-header">
             <div class="d-flex justify-content-between mt-2">
-                <div class="h5"><strong><h1><i class="bi bi-layout-three-columns"></i> <?= $title; ?></h1></strong></div>
+                <div class="h5"><strong><h1><i class="bi bi-kanban"></i> <?= $title; ?></h1></strong></div>
                 <div class="h5"><strong></strong></div>
             </div>
         </legend>
         <div class="card-body">
 
             <div id="toolbar" >
-                <a href="<?=base_url('/spalten/ced_edit/0/0/')?>">
+                <a href="<?=base_url('/boards/ced_edit/0/0/')?>">
                     <button class="btn btn-primary mb-2" type="button" name="btnNeu" id="btnNeu">
-                        <i class="bi bi-plus-lg"></i> Neue Spalte erstellen</button>
+                        <i class="bi bi-plus-lg"></i> Neues Board erstellen</button>
                 </a>
             </div>
 
@@ -25,28 +25,22 @@
                    data-toolbar="#toolbar">
                 <thead>
                 <tr>
-                    <th data-field="id" data-sortable="true">SpaltenID</th>
-                    <th data-field="boardsid">Board</th>
-                    <th data-field="sortid" data-sortable="true">SortID</th>
-                    <th data-field="spaltenid" data-sortable="true">Spalte</th>
-                    <th data-field="spaltenbeschreibung">Spaltenbeschreibung</th>
+                    <th data-field="id" data-sortable="true">BoardID</th>
+                    <th data-field="boardsid">Bezeichnung</th>
                     <th data-fied="action">Bearbeiten</th>
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach( $spalten as $item ): ?>
+                <?php foreach( $boards as $item ): ?>
                     <tr>
                         <td><?= $item['id'] ?></td>
-                        <td><?= $item['boardname'] ?? 'Keinem Board zugeordnet' ?></td>
-                        <td><?= $item['sortid'] ?></td>
-                        <td><?= $item['spalte']?></td>
-                        <td><?= $item['spaltenbeschreibung']?></td>
+                        <td><?= $item['board'] ?></td>
                         <td>
                             <div class="btn-group">
-                                <a href="<?=base_url('/spalten/ced_edit/' . $item['id'] . '/1/')?>">
+                                <a href="<?=base_url('/boards/ced_edit/' . $item['id'] . '/1/')?>">
                                     <button type='button' name='btnBearbeiten' id='btnBearbeiten' class='btn'><i style="color: Dodgerblue;" class="fas fa-edit"></i></button>
                                 </a>
-                                <a href="<?=base_url('/spalten/ced_edit/' . $item['id'] . '/2/')?>">
+                                <a href="<?=base_url('/boards/ced_edit/' . $item['id'] . '/2/')?>">
                                     <button type='submit' name='btnLoeschen' id='btnLoeschen' class='btn'><i style="color: Dodgerblue;" class="fas fa-trash"></i></button>
                                 </a>
                             </div>

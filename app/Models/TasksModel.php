@@ -12,7 +12,8 @@ class TasksModel extends Model
 
     public function getTasks($task_id = NULL) {
         $this->tasks = $this->db->table('tasks');
-        $this->tasks->select('*');
+        $this->tasks->select('tasks.*, taskarten.taskartenicon');
+        $this->tasks->join('taskarten', 'tasks.taskartenid = taskarten.id');
 
         IF ($task_id != NULL)
             $this->tasks->where('tasks.id', $task_id);

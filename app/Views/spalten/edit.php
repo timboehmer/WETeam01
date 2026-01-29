@@ -2,7 +2,7 @@
     <div class="card bg-light mt-4">
         <legend class="card-header">
             <div class="d-flex justify-content-between">
-                <div class="h5"><strong>Spalten <?= isset($_POST['btnLoeschen']) ? ' löschen' : ' bearbeiten oder neu erstellen'?></strong></div>
+                <div class="h5"><strong>Spalte <?= isset($_POST['btnLoeschen']) ? ' löschen' : ' bearbeiten oder neu erstellen'?></strong></div>
                 <div class="h5"><strong></strong></div>
             </div>
         </legend>
@@ -45,15 +45,23 @@
                 </div>
 
                 <div class="form-group row mb-2">
-                    <label for="BoardsID" class="col-sm-2 col-form-label">Board:</label>
+                    <label for="boardsid" class="col-sm-2 col-form-label">Board:</label>
                     <div class="col-sm-10">
-                        <select name="boardsid" class="form-select">
-                            <option value="" <?= (!isset($spalten['boardsid']) || $spalten['boardsid'] == 0 || $spalten['boardsid'] == "") ? 'selected' : '' ?>>
-                                Kein Board
+                        <select name="boardsid" id="boardsid" class="form-select">
+
+                            <option value="" <?= (empty($spalten['boardsid'])) ? 'selected' : '' ?>>
+                                Keinem Board zugeordnet
                             </option>
-                            <option value="1" <?= (isset($spalten['boardsid']) && $spalten['boardsid'] == 1) ? 'selected' : '' ?>>Übung 5</option>
-                            <option value="2" <?= (isset($spalten['boardsid']) && $spalten['boardsid'] == 2) ? 'selected' : '' ?>>Übung 6</option>
-                            <option value="3" <?= (isset($spalten['boardsid']) && $spalten['boardsid'] == 3) ? 'selected' : '' ?>>Übung 7</option>
+
+                            <?php foreach ($boards as $board): ?>
+                                <?php
+                                $isSelected = (isset($spalten['boardsid']) && $spalten['boardsid'] == $board['id']) ? 'selected' : '';
+                                ?>
+                                <option value="<?= $board['id'] ?>" <?= $isSelected ?>>
+                                    <?= esc($board['board']) ?>
+                                </option>
+                            <?php endforeach; ?>
+
                         </select>
                     </div>
                 </div>

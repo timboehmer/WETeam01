@@ -94,6 +94,19 @@ class Validation extends BaseConfig
             'max_length' => 'Die Spaltenbeschreibung darf maximal 1000 Zeichen lang sein.',
         ],
     ];
+
+    public $boardbearbeiten = [
+        'board' => 'required|min_length[3]|max_length[255]',
+    ];
+
+    public $boardbearbeiten_errors = [
+        'board' => [
+            'required' => 'Bitte tragen Sie einen Boardnamen ein.',
+            'min_length' => 'Der Boardname muss mindestens 3 Zeichen lang sein.',
+            'max_length' => 'Der Boardname ist zu lang.',
+        ],
+
+    ];
     // --------------------------------------------------------------------
     // Rules
     // --------------------------------------------------------------------

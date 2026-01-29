@@ -3,14 +3,17 @@
 namespace App\Controllers;
 
 use App\Models\SpaltenModel;
+use App\Models\BoardsModel;
 
 class Spalten extends Home
 {
     protected $spaltenModel;
+    protected $boardsModel;
 
     public function __construct()
     {
         $this->SpaltenModel = new SpaltenModel();
+        $this->boardsModel = new BoardsModel();
     }
 
     public function getIndex()
@@ -24,7 +27,7 @@ class Spalten extends Home
     }
     public function getIndex_edit() {
 
-        $data['title'] = "Spaltendaten bearbeiten";
+        $data['title'] = "Spalten";
         $data['spalten'] = $this->SpaltenModel->getspalten();
 
         echo view( 'templates/header');
@@ -42,6 +45,8 @@ class Spalten extends Home
 
         if($id > 0 && ($todo == 1 || $todo == 2 ))
             $data['spalten'] = $this->SpaltenModel->getspalten($id);
+
+        $data['boards'] = $this->boardsModel->getBoards();
 
         echo view( 'templates/header');
         echo view('templates/menu');
@@ -69,6 +74,8 @@ class Spalten extends Home
                 $data['error'] = $this->validation->getErrors();
 
                 $data['todo'] = (isset($_POST['id']) && $_POST['id'] != '') ? 1 : 0;
+
+                $data['boards'] = $this->boardsModel->getBoards();
 
                 echo view('templates/header');
                 echo view('templates/menu');
