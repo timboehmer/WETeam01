@@ -9,17 +9,17 @@ use App\Models\TaskartenModel;
 
 class Tasks extends Home
 {
-    protected $tasksModel;
-    protected $taskartenModel;
-    protected $boardsModel;
-    protected $spaltenModel;
+    protected $TasksModel;
+    protected $TaskartenModel;
+    protected $BoardsModel;
+    protected $SpaltenModel;
 
     public function __construct()
     {
         $this->TasksModel = new TasksModel();
         $this->SpaltenModel = new SpaltenModel();
         $this->BoardsModel = new BoardsModel();
-        $this->taskartenModel = new TaskartenModel();
+        $this->TaskartenModel = new TaskartenModel();
     }
 
     public function getIndex()
@@ -127,7 +127,7 @@ class Tasks extends Home
             $boardID = $aktuelleSpalte['boardsid'] ?? null;
         }
 
-        $data['taskarten'] = $this->taskartenModel->gettaskarten();
+        $data['taskarten'] = $this->TaskartenModel->gettaskarten();
 
         if($boardID){
             $data['spalten'] = $this->SpaltenModel->getSpaltenByBoardId($boardID);
@@ -164,7 +164,7 @@ class Tasks extends Home
 
                 $data['todo'] = (isset($_POST['id']) && $_POST['id'] != '') ? 1 : 0;
 
-                $data['taskarten'] = $this->taskartenModel->gettaskarten();
+                $data['taskarten'] = $this->TaskartenModel->gettaskarten();
 
                 $boardID = $_POST['boardid'] ?? null;
                 $data['boardid'] = $boardID;
@@ -193,6 +193,8 @@ class Tasks extends Home
         }
 
     }
+
+
 
 }
 

@@ -100,10 +100,7 @@
 
                                                 <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center"
                                                      style="width: 30px; height: 30px; font-size: 12px;"
-                                                     title="<?= esc($task['vorname'] ?? '') . ' ' . esc($task['name'] ?? '') ?>">
-
-                                                    <?= strtoupper($task['kuerzel'] ?? '?') ?>
-
+                                                     title="<?= esc($task['vorname'] ?? '') . ' ' . esc($task['name'] ?? '') ?>">                                                    <?= $task['personenid'] ?>
                                                 </div>
                                             </div>
 
