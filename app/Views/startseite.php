@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="h-100">
+<html lang="de" class="h-100">
 
 <style>
     .hover-card:hover {
@@ -19,8 +19,8 @@
     <div class="container py-5">
 
         <div class="text-center mb-5">
-            <h1 class="display-5 fw-bold text-success">Team 01</h1>
-            <p class="lead text-muted">Projekt Webentwicklung 2025/26</p>
+            <h1 class="display-5 fw-bold text-success"><i class="bi bi-speedometer2"></i> Dashboard</h1>
+            <p class="lead text-muted">Team 01, Webentwicklung 2025/26</p>
             <hr class="w-25 mx-auto">
         </div>
 

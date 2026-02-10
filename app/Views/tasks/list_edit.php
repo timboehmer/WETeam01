@@ -3,17 +3,17 @@
     <div class="d-flex justify-content-between align-items-center mb-4 px-2">
 
         <div class="d-flex align-items-center gap-3">
-            <h1 class="mb-0"><i class="fa-solid fa-list-check"></i> <?= esc($title) ?></h1>
-
+            <h1 class="display-5 fw-bold text-success"><i class="bi bi-list-task"></i> <?= esc($title) ?></h1>
+            <br>
             <div class="dropdown">
                 <button class="btn btn-outline-dark dropdown-toggle" type="button" id="boardDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    Board wechseln
+                    <i class="bi bi-arrow-down-up"></i> Board wechseln
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="boardDropdown">
                     <?php if(!empty($boards)): ?>
                         <?php foreach($boards as $board): ?>
                             <li>
-                                <a class="dropdown-item <?= ($board['id'] == $aktuellesBoardID) ? 'active' : '' ?>"
+                                <a class="dropdown-item <?= ($board['id'] == $aktuelleBoardID) ? 'active' : '' ?>"
                                    href="<?= base_url('tasks') ?>?boardid=<?= $board['id'] ?>">
                                     <?= esc($board['board']) ?>
                                 </a>
@@ -26,8 +26,8 @@
             </div>
         </div>
 
-        <a href="<?= base_url('tasks/ced_edit/0/0') ?>?boardid=<?= $aktuellesBoardID ?>" class="btn btn-primary">
-            <i class="fa-solid fa-plus"></i> Neu
+        <a href="<?= base_url('tasks/ced_edit/0/0') ?>?boardid=<?= $aktuelleBoardID ?>" class="btn btn-primary">
+            <i class="fa-solid fa-plus"></i> Neuen Task erstellen
         </a>
     </div>
 
@@ -76,12 +76,12 @@
                                                     <ul class="dropdown-menu dropdown-menu-end">
                                                         <li>
                                                             <a class="dropdown-item" href="<?= base_url('tasks/ced_edit/' . $task['id'] . '/1') ?>">
-                                                                <i class="fa-solid fa-pen text-primary me-2"></i> Bearbeiten
+                                                                <i class="bi bi-pencil-square me-2"></i> Bearbeiten
                                                             </a>
                                                         </li>
                                                         <li>
                                                             <a class="dropdown-item text-danger" href="<?= base_url('tasks/ced_edit/' . $task['id'] . '/2') ?>">
-                                                                <i class="fa-solid fa-trash me-2"></i> Löschen
+                                                                <i class="bi bi-trash me-2"></i> Löschen
                                                             </a>
                                                         </li>
                                                     </ul>
@@ -100,8 +100,10 @@
 
                                                 <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center"
                                                      style="width: 30px; height: 30px; font-size: 12px;"
-                                                     title="Person ID: <?= $task['personenid'] ?>">
-                                                    <?= $task['personenid'] ?>
+                                                     title="<?= esc($task['vorname'] ?? '') . ' ' . esc($task['name'] ?? '') ?>">
+
+                                                    <?= strtoupper($task['kuerzel'] ?? '?') ?>
+
                                                 </div>
                                             </div>
 

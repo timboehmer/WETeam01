@@ -107,6 +107,24 @@ class Validation extends BaseConfig
         ],
 
     ];
+
+    public $taskartbearbeiten = [
+        'taskart' => 'required|min_length[3]|max_length[255]',
+        'taskartenicon' => 'required|min_length[3]|max_length[255]',
+    ];
+
+    public $taskartbearbeiten_errors = [
+        'taskart' => [
+            'required' => 'Bitte tragen Sie einen Taskartnamen ein.',
+            'min_length' => 'Der Taskartname muss mindestens 3 Zeichen lang sein.',
+            'max_length' => 'Der Taskartname darf maximal 255 Zeichen lang sein.',
+        ],
+        'taskartenicon' => [
+            'required' => 'Bitte tragen Sie ein Taskartenicon ein.',
+            'min_length' => 'Das Taskartenicon muss mindestens 3 Zeichen lang sein.',
+            'max_length' => 'Das Taskartenicon darf maximal 255 Zeichen lang sein.',
+        ],
+    ];
     // --------------------------------------------------------------------
     // Rules
     // --------------------------------------------------------------------

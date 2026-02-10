@@ -77,12 +77,21 @@
                     </div>
                 </div>
                 <div class="form-group row mb-2">
-                    <label for="Erinnerung" class="col-sm-2 col-form-label">Erinnerung:</label>
+                    <label for="erinnerung" class="col-sm-2 col-form-label">Erinnerung:</label>
                     <div class="col-sm-10">
-                        <select name="erinnerung" id="erinnerung_select" class="form-select <?=(isset($error['erinnerung']))?'is-invalid':''?>">
-                            <option value="0" <?= (isset($tasks['erinnerung']) && $tasks['erinnerung'] == 0) ? 'selected' : '' ?>>Nein</option>
-                            <option value="1" <?= (isset($tasks['erinnerung']) && $tasks['erinnerung'] == 1) ? 'selected' : '' ?>>Ja</option>
+                        <select name="erinnerung" id="erinnerung_select" class="form-select <?= ($error['erinnerung'] ?? '') ? 'is-invalid' : '' ?>">
+
+                            <?php
+                            $erinnerungValue = (int)($tasks['erinnerung'] ?? 0);
+                            ?>
+
+                            <option value="0" <?= $erinnerungValue === 0 ? 'selected' : '' ?>>Nein</option>
+                            <option value="1" <?= $erinnerungValue === 1 ? 'selected' : '' ?>>Ja</option>
+
                         </select>
+                        <div class="invalid-feedback">
+                            <?= $error['erinnerung'] ?? '' ?>
+                        </div>
                     </div>
                 </div>
 

@@ -12,7 +12,7 @@
 
                 <div class="form-group row">
                     <label for="Vorname" class="col-sm-2 col-form-label">Vorname:</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-10 mb-2">
                         <input type="hidden" id="id" name="id" value="<?=isset($personen['id']) ? $personen['id'] : '' ?>">
                         <input type="text" class="form-control"  id="vorname" name="vorname" placeholder="Peter"
                                value="<?=isset($personen['vorname']) ? $personen['vorname'] : '' ?>" >
@@ -21,14 +21,14 @@
 
                 <div class="form-group row">
                     <label for="Name" class="col-sm-2 col-form-label">Name:</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-10 mb-2">
                         <input type="text" class="form-control" id="name" name="name" placeholder="Mustermann" value="<?=isset($personen['name']) ? $personen['name'] : '' ?>">
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="Strasse" class="col-sm-2 col-form-label">Strasse:</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-10 mb-2">
                         <input type="text" class="form-control"  id="strasse" name="strasse" placeholder="Musterstr. 11" value="<?=isset($personen['strasse']) ? $personen['strasse'] : '' ?>">
                     </div>
                 </div>

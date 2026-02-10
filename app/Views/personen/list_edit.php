@@ -47,10 +47,10 @@
                                 <td>
                                     <div class="btn-group">
                                         <a href="<?=base_url('/personen/ced_edit/' . $item['id'] . '/1/')?>">
-                                            <button type='button' name='btnBearbeiten' id='btnBearbeiten' class='btn'><i style="color: Dodgerblue;" class="fas fa-edit"></i></button>
+                                            <button type='button' name='btnBearbeiten' id='btnBearbeiten' class='btn'><i style="color: Dodgerblue;" class="bi bi-pencil-square"></i></button>
                                         </a>
                                         <a href="<?=base_url('/personen/ced_edit/' . $item['id'] . '/2/')?>">
-                                            <button type='submit' name='btnLoeschen' id='btnLoeschen' class='btn'><i style="color: Dodgerblue;" class="fas fa-trash"></i></button>
+                                            <button type='submit' name='btnLoeschen' id='btnLoeschen' class='btn'><i style="color: red;" class="bi bi-trash"></i></button>
                                         </a>
                                     </div>
                                 </td>

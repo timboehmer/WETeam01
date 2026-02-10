@@ -32,7 +32,7 @@ class Tasks extends Home
         if (empty($boardID) && !empty($boards)) {
             $boardID = $boards[0]['id'];
         }
-        $data['aktuellesBoardID'] = $boardID;
+        $data['aktuelleBoardID'] = $boardID;
 
         $alleSpalten = $this->SpaltenModel->getspalten();
         $gefilterteSpalten = [];
@@ -72,7 +72,7 @@ class Tasks extends Home
         if (empty($boardID) && !empty($boards)) {
             $boardID = $boards[0]['id'];
         }
-        $data['aktuellesBoardID'] = $boardID;
+        $data['aktuelleBoardID'] = $boardID;
 
         $alleSpalten = $this->SpaltenModel->getspalten();
         $gefilterteSpalten = [];
@@ -113,11 +113,14 @@ class Tasks extends Home
         $boardID = $this->request->getVar('boardid');
 
         if($id > 0 && ($todo == 1 || $todo == 2 )){
-            $data['tasks'] = $this->TasksModel->gettasks($id);
+            $task = $this->TasksModel->gettasks($id);
             $data['tasks'] = $task;
 
-            $aktuelleSpalte = $this->SpaltenModel->getspalten($task['spaltenid']);
-            $boardID = $aktuelleSpalte['boardsid'] ?? null;
+            if(!empty($task)){
+                $aktuelleSpalte = $this->SpaltenModel->getspalten($task['spaltenid']);
+                $boardID = $aktuelleSpalte['boardsid'] ?? null;
+            }
+
         }
         elseif ($spaltenid > 0 && empty($boardID)){
             $aktuelleSpalte = $this->SpaltenModel->getspalten($spaltenid);
@@ -160,6 +163,17 @@ class Tasks extends Home
                 $data['error'] = $this->validation->getErrors();
 
                 $data['todo'] = (isset($_POST['id']) && $_POST['id'] != '') ? 1 : 0;
+
+                $data['taskarten'] = $this->taskartenModel->gettaskarten();
+
+                $boardID = $_POST['boardid'] ?? null;
+                $data['boardid'] = $boardID;
+
+                if($boardID){
+                    $data['spalten'] = $this->SpaltenModel->getSpaltenByBoardId($boardID);
+                } else {
+                    $data['spalten'] = [];
+                }
 
                 echo view('templates/header');
                 echo view('templates/menu');

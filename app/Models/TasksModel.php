@@ -12,7 +12,13 @@ class TasksModel extends Model
 
     public function getTasks($task_id = NULL) {
         $this->tasks = $this->db->table('tasks');
-        $this->tasks->select('tasks.*, taskarten.taskartenicon');
+        $this->tasks->select('tasks.*, 
+        taskarten.taskartenicon, 
+        personen.vorname, 
+        personen.name, 
+        CONCAT(LEFT(personen.vorname, 1), LEFT(personen.name, 1)) as kuerzel');
+
+        $this->tasks->join('personen', 'tasks.personenid = personen.id', 'left');
         $this->tasks->join('taskarten', 'tasks.taskartenid = taskarten.id');
 
         IF ($task_id != NULL)
@@ -37,7 +43,7 @@ class TasksModel extends Model
             'spaltenid'        => $_POST['spaltenid'],
             'erstelldatum'     => date('Y-m-d'),
             'erinnerungsdatum' => $_POST['erinnerungsdatum'],
-            'erinnerung'       => isset($_POST['erinnerung']) ? 1 : 0,
+            'erinnerung'       => $_POST['erinnerung'],
             'notizen'          => $_POST['notizen']
         ));
     }

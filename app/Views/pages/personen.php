@@ -2,7 +2,7 @@
         <div class="card me-2 mt-4">
             <legend class="card-header">
                 <div class="d-flex justify-content-between mt-2">
-                    <div class="h5"><strong><h1><i class="fa-solid fa-address-card"></i> Personen-Tabelle</h1></strong></div>
+                    <div class="h5"><strong><h1><i class="bi bi-people-fill"></i> Personen-Tabelle</h1></strong></div>
                 </div>
             </legend>
             <div class="card-body">

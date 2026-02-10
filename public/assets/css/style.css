@@ -1,55 +1,262 @@
-
+/* --- Global & Layout --- */
 body {
     font-family: 'Inter', Arial, sans-serif;
+    background-color: #f8f9fa; /* Leichter Grauton für den Content-Hintergrund, damit sich Header abhebt */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-
-nav {
-    background: #002060;
+/* --- Header & Navbar Design --- */
+nav.navbar {
+    /* Verlauf von Dunkelblau (#002060) zu einem helleren Blau (#00509d) */
+    background: linear-gradient(135deg, #002060 0%, #00509d 100%);
+    box-shadow: 0 4px 15px rgba(0, 32, 96, 0.3); /* Weicher Schatten nach unten */
+    padding: 0.8rem 1rem;
     color: white;
-    width: auto;
 }
 
-.nav-item{
-    color:white;
+/* Logo Animation */
+.navbar-brand img {
+    transition: transform 0.3s ease;
 }
 
-.nav-link {
-    color: white !important;
+.navbar-brand:hover img {
+    transform: scale(1.05); /* Logo vergrößert sich leicht beim Hover */
 }
 
-.card{
-    margin: 20px;
+/* --- Navigation Links --- */
+.nav-pills .nav-link {
+    color: rgba(255, 255, 255, 0.9) !important; /* Leicht transparentes Weiß */
+    font-weight: 500;
+    padding: 0.5rem 1.2rem;
+    margin: 0 4px;
+    border-radius: 50px; /* Pillen-Form */
+    transition: all 0.3s ease; /* Weicher Übergang für alle Effekte */
+    position: relative;
 }
 
-.card-title {
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 8px;
-    margin-bottom: 8px;
+/* Hover Effekt für Nav Items */
+.nav-pills .nav-link:hover,
+.nav-pills .nav-link:focus,
+.nav-item.dropdown:hover .nav-link {
+    color: #ffffff !important;
+    background-color: rgba(255, 255, 255, 0.15); /* Glass-Effekt */
+    transform: translateY(-2px); /* Leichtes Anheben */
+    text-shadow: 0 0 5px rgba(255,255,255,0.4); /* Leichter Glow */
 }
 
-.card-header {
-    font-size: larger;
-    font-weight: bold;
+/* Dropdown Menu Styling */
+.dropdown-menu {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    margin-top: 10px !important; /* Der feste Abstand */
+
+    /* Wir ändern die Animation, damit sie nicht mit Bootstrap streitet */
+    animation: fadeOnly 0.3s ease;
+    display: block; /* Hilft manchmal gegen Flackern, Bootstrap steuert Sichtbarkeit über Klassen */
 }
 
+/* Verhindert, dass das Menü sichtbar ist, wenn es geschlossen sein soll */
+.dropdown-menu:not(.show) {
+    display: none;
+}
+
+.dropdown-item {
+    padding: 10px 20px;
+    color: #002060;
+    transition: background 0.2s;
+}
+
+.dropdown-item:hover {
+    background-color: #eef4ff;
+    color: #002060;
+    font-weight: 600;
+}
+
+/* NEUE Animation: Nur Opacity, kein Transform (verhindert das Springen) */
+@keyframes fadeOnly {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* --- Footer Design --- */
 .footer {
-    poition: fixed;
     margin-top: auto;
-    background: #002060;
-    font-size: medium;
+    background: linear-gradient(to right, #002060 0%, #003375 100%);
+    color: white;
+    padding: 1.5rem 0;
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.footer .navbar {
+    background: transparent; /* Verhindert doppelten Hintergrund */
+    box-shadow: none;
+    padding: 0;
 }
 
 .nav-text {
-    font-size: small;
-    width: 20em;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    font-weight: 300;
 }
 
+/* Footer Links */
+.footer .nav-link {
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    opacity: 0.8;
+}
 
+.footer .nav-link:hover {
+    opacity: 1;
+    background: none; /* Kein Hintergrund im Footer beim Hover, nur Text-Helligkeit */
+    transform: translateY(0);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
 
+/* --- Cards (Bestehendes CSS leicht optimiert) --- */
+.card {
+    margin: 20px;
+    border: none; /* Modern: Keine harten Ränder */
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
 
+.card-title {
+    border-bottom: 2px solid #f0f0f0; /* Hellerer, dickerer Strich */
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    color: #002060; /* Überschriften in Primärfarbe */
+}
 
+.card-header {
+    background-color: #fff;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #002060;
+    border-radius: 12px 12px 0 0 !important;
+}
 
+/* Kleine Animation für Dropdown */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
+/* --- Kanban Board Modernisierung --- */
 
+/* 1. Der Hintergrundbereich hinter den Spalten */
+.row.flex-nowrap.overflow-auto {
+    /* Ein satteres Grau-Blau, damit die weißen Karten knallen */
+    background-color: #e9ecef;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 15px;
+    /* Innerer Schatten für Tiefe (Inset) */
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+}
 
+/* 2. Die Spalten-Container (Graue Boxen) */
+.col .card.bg-light {
+    background-color: #f4f5f7 !important; /* Trello-artiges Hellgrau */
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05); /* Leichter Schatten */
+}
+
+/* Spalten-Überschrift */
+.col .card-header {
+    background-color: transparent;
+    border-bottom: 2px solid #dce1e6;
+    color: #172b4d; /* Sehr dunkles Blau-Grau für Kontrast */
+    font-weight: 800;
+    font-size: 1.3rem;
+    letter-spacing: 0.05em;
+    padding-top: 15px;
+}
+
+/* Untertitel der Spalte */
+.col .card-subtitle {
+    font-weight: 500;
+    color: #6c757d;
+}
+
+/* 3. Die Task-Karten (Das Herzstück) */
+.card-body .card.shadow-sm {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    /* Linker farbiger Rand als Akzent (passt zum Header) */
+    border-left: 5px solid #00509d;
+
+    /* Standard Schatten */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08) !important;
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer; /* Zeigt an, dass man klicken kann */
+}
+
+/* Hover-Effekt: Karte hebt sich ab */
+.card-body .card.shadow-sm:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 12px 20px rgba(0, 32, 96, 0.15) !important;
+    border-left-color: #002060; /* Rand wird dunkler beim Hover */
+}
+
+/* 4. Typografie innerhalb der Task-Karten */
+.card-title {
+    color: #2c3e50;
+    font-size: 1.05rem;
+    line-height: 1.4;
+}
+
+/* Icons für Taskarten farblich abheben */
+.fa-bug { color: #dc3545; } /* Rot für Bugs */
+.fa-lightbulb { color: #ffc107; } /* Gelb für Ideen */
+.fa-star { color: #28a745; } /* Grün für Features */
+.fa-list-check { color: #00509d; } /* Blau für Tasks */
+
+/* Notizen Text */
+.card-text.text-muted {
+    color: #6b778c !important; /* Etwas dunkleres Grau für bessere Lesbarkeit */
+    font-size: 0.9rem;
+}
+
+/* 5. Metadaten unten (Datum & User Circle) */
+.text-secondary i {
+    color: #00509d; /* Icon Farbe */
+}
+
+/* Der User-Kreis */
+.bg-primary.rounded-circle {
+    background: linear-gradient(135deg, #00509d 0%, #002060 100%) !important;
+    box-shadow: 0 2px 5px rgba(0, 32, 96, 0.3);
+    font-weight: bold;
+    border: 1px solid #fff;
+}
+
+/* Dropdown Menü Punkte (3 Punkte) */
+.btn-link.text-muted {
+    color: #a0a0a0 !important;
+    font-size: 1.2rem;
+}
+.btn-link.text-muted:hover {
+    color: #002060 !important;
+}
+
+/* Button "Task hinzufügen" unten */
+.btn-outline-secondary {
+    border-color: transparent;
+    color: #5e6c84;
+    font-weight: 500;
+    background-color: rgba(9, 30, 66, 0.04);
+}
+
+.btn-outline-secondary:hover {
+    background-color: rgba(9, 30, 66, 0.08);
+    color: #172b4d;
+    border-color: transparent;
+}
