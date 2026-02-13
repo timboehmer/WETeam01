@@ -29,30 +29,34 @@ class Tasks extends Home
 
         $boardID = $this->request->getVar('boardid');
 
-        if (empty($boardID) && !empty($boards)) {
-            $boardID = $boards[0]['id'];
-        }
+
         $data['aktuelleBoardID'] = $boardID;
 
-        $alleSpalten = $this->SpaltenModel->getspalten();
-        $gefilterteSpalten = [];
+        $data['spalten'] = [];
+        $data['tasks'] = [];
+        $data['title'] = "Board auswählen";
 
-        if (!empty($alleSpalten)) {
-            foreach ($alleSpalten as $spalte) {
-                if (isset($spalte['boardsid']) && $spalte['boardsid'] == $boardID) {
-                    $gefilterteSpalten[] = $spalte;
+        if (!empty($boardID)) {
+
+            $alleSpalten = $this->SpaltenModel->getspalten();
+            $gefilterteSpalten = [];
+
+            if (!empty($alleSpalten)) {
+                foreach ($alleSpalten as $spalte) {
+                    if (isset($spalte['boardsid']) && $spalte['boardsid'] == $boardID) {
+                        $gefilterteSpalten[] = $spalte;
+                    }
                 }
             }
-        }
-        $data['spalten'] = $gefilterteSpalten;
+            $data['spalten'] = $gefilterteSpalten;
 
-        $data['tasks'] = $this->TasksModel->gettasks();
+            $data['tasks'] = $this->TasksModel->gettasks();
 
-        $data['title'] = "Taskboard";
-        foreach ($boards as $board) {
-            if ($board['id'] == $boardID) {
-                $data['title'] = $board['board'];
-                break;
+            foreach ($boards as $board) {
+                if ($board['id'] == $boardID) {
+                    $data['title'] = $board['board'];
+                    break;
+                }
             }
         }
 
@@ -62,6 +66,7 @@ class Tasks extends Home
         echo view('tasks/list_edit', $data);
         echo view('templates/footer');
     }
+
     public function getIndex_edit()
     {
         $boards = $this->BoardsModel->getBoards();
@@ -69,30 +74,33 @@ class Tasks extends Home
 
         $boardID = $this->request->getVar('boardid');
 
-        if (empty($boardID) && !empty($boards)) {
-            $boardID = $boards[0]['id'];
-        }
         $data['aktuelleBoardID'] = $boardID;
 
-        $alleSpalten = $this->SpaltenModel->getspalten();
-        $gefilterteSpalten = [];
+        $data['spalten'] = [];
+        $data['tasks'] = [];
+        $data['title'] = "Willkommen";
 
-        if (!empty($alleSpalten)) {
-            foreach ($alleSpalten as $spalte) {
-                if (isset($spalte['boardsid']) && $spalte['boardsid'] == $boardID) {
-                    $gefilterteSpalten[] = $spalte;
+        if (!empty($boardID)) {
+
+            $alleSpalten = $this->SpaltenModel->getspalten();
+            $gefilterteSpalten = [];
+
+            if (!empty($alleSpalten)) {
+                foreach ($alleSpalten as $spalte) {
+                    if (isset($spalte['boardsid']) && $spalte['boardsid'] == $boardID) {
+                        $gefilterteSpalten[] = $spalte;
+                    }
                 }
             }
-        }
-        $data['spalten'] = $gefilterteSpalten;
+            $data['spalten'] = $gefilterteSpalten;
 
-        $data['tasks'] = $this->TasksModel->gettasks();
+            $data['tasks'] = $this->TasksModel->gettasks();
 
-        $data['title'] = "Taskboard";
-        foreach ($boards as $board) {
-            if ($board['id'] == $boardID) {
-                $data['title'] = $board['board'];
-                break;
+            foreach ($boards as $board) {
+                if ($board['id'] == $boardID) {
+                    $data['title'] = $board['board'];
+                    break;
+                }
             }
         }
 
@@ -103,8 +111,8 @@ class Tasks extends Home
         echo view('templates/footer');
     }
 
-    public function getCed_edit($id = 0, $todo = 0, $spaltenid = 0) {
-
+    public function getCed_edit($id = 0, $todo = 0, $spaltenid = 0)
+    {
         // Todo: 0 = create, 1 = Bearbeiten, 2 = löschen
         $data['todo'] = $todo;
         $data['spaltenid'] = $spaltenid;
@@ -112,52 +120,55 @@ class Tasks extends Home
 
         $boardID = $this->request->getVar('boardid');
 
-        if($id > 0 && ($todo == 1 || $todo == 2 )){
+        if ($id > 0 && ($todo == 1 || $todo == 2)) {
             $task = $this->TasksModel->gettasks($id);
             $data['tasks'] = $task;
 
-            if(!empty($task)){
+            if (!empty($task)) {
                 $aktuelleSpalte = $this->SpaltenModel->getspalten($task['spaltenid']);
                 $boardID = $aktuelleSpalte['boardsid'] ?? null;
             }
 
         }
-        elseif ($spaltenid > 0 && empty($boardID)){
+        elseif ($spaltenid > 0 && empty($boardID)) {
             $aktuelleSpalte = $this->SpaltenModel->getspalten($spaltenid);
             $boardID = $aktuelleSpalte['boardsid'] ?? null;
         }
 
         $data['taskarten'] = $this->TaskartenModel->gettaskarten();
 
-        if($boardID){
+        if ($boardID) {
             $data['spalten'] = $this->SpaltenModel->getSpaltenByBoardId($boardID);
             $data['boardid'] = $boardID;
-        }else {
+        }
+        else {
             $data['spalten'] = [];
+            $data['boardid'] = 0;
         }
 
-
-        echo view( 'templates/header');
+        echo view('templates/header');
         echo view('templates/menu');
-        echo view( 'tasks/edit', $data);
-        echo view( 'templates/footer');
-
+        echo view('tasks/edit', $data);
+        echo view('templates/footer');
     }
 
-    public function postSubmit_edit() {
+    public function postSubmit_edit()
+    {
+        $redirectBoardId = $_POST['boardid'] ?? '';
 
         // Task ändern
-        if(isset($_POST['btnSpeichern'] )) {
+        if (isset($_POST['btnSpeichern'])) {
 
-            if($this->validation->run($_POST, 'taskbearbeiten')){
-                if(isset($_POST['id']) && $_POST['id'] != '') {
+            if ($this->validation->run($_POST, 'taskbearbeiten')) {
+                if (isset($_POST['id']) && $_POST['id'] != '') {
                     $this->TasksModel->getUpdateTask();
                 }
                 else {
                     $this->TasksModel->getCreateTask();
                 }
-                return redirect()->to(base_url('tasks/index_edit/'));
-            } else {
+                return redirect()->to(base_url('tasks?boardid=' . $redirectBoardId));
+            }
+            else {
 
                 $data['tasks'] = $_POST;
                 $data['error'] = $this->validation->getErrors();
@@ -169,9 +180,10 @@ class Tasks extends Home
                 $boardID = $_POST['boardid'] ?? null;
                 $data['boardid'] = $boardID;
 
-                if($boardID){
+                if ($boardID) {
                     $data['spalten'] = $this->SpaltenModel->getSpaltenByBoardId($boardID);
-                } else {
+                }
+                else {
                     $data['spalten'] = [];
                 }
 
@@ -185,16 +197,26 @@ class Tasks extends Home
         // Task löschen
         elseif (isset($_POST['btnLoeschen'])) {
             $this->TasksModel->getDeleteTask();
-            return redirect()->to(base_url('tasks/index_edit/'));
+            return redirect()->to(base_url('tasks?boardid=' . $redirectBoardId));
         }
         // Abbrechen
         elseif (isset($_POST['btnAbbrechen'])) {
-            return redirect()->to(base_url('tasks/index_edit/'));
+            return redirect()->to(base_url('tasks?boardid=' . $redirectBoardId));
         }
-
     }
 
+    public function postSubmittaskboard()
+    {
+        $tasksid = $this->request->getPost('tasksid');
+        $targetspaltenid = $this->request->getPost('targetspaltenid');
 
+        if ($tasksid && $targetspaltenid) {
+            $this->TasksModel->moveTask($tasksid, $targetspaltenid);
 
+            return json_encode(['success' => true, 'msg' => 'Task verschoben']);
+        }
+        else {
+            return json_encode(['success' => false, 'msg' => 'Fehlerhafte Daten']);
+        }
+    }
 }
-

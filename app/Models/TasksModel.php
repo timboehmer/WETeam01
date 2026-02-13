@@ -69,5 +69,14 @@ class TasksModel extends Model
         $this->tasks->delete();
     }
 
+    public function moveTask($taskid, $targetspaltenid) {
+        $this->tasks = $this->db->table('tasks');
+        $this->tasks->where('id', $taskid);
+
+        $this->tasks->update(array(
+            'spaltenid' => $targetspaltenid
+        ));
+    }
+
 
 }

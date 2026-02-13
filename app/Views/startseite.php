@@ -41,8 +41,8 @@
                 <div class="card h-100 shadow-sm hover-card text-center">
                     <div class="card-body d-flex flex-column justify-content-center align-items-center p-4">
                         <i class="fa-solid fa-list-check icon-large"></i>
-                        <h3 class="card-title">Übung 05 & 07</h3>
-                        <p class="card-text text-muted">Taskboard Ansicht & Verwaltung</p>
+                        <h3 class="card-title">Übung 05 & 07 & 08</h3>
+                        <p class="card-text text-muted">Taskboard Ansicht & Verwaltung + Drag & Drop</p>
                         <a href="<?= base_url('tasks') ?>" class="btn btn-primary mt-3 stretched-link">
                             Tasks öffnen
                         </a>

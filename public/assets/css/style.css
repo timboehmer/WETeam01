@@ -260,3 +260,64 @@ nav.navbar {
     color: #172b4d;
     border-color: transparent;
 }
+
+/* --- Drag & Drop (Dragula) Styling --- */
+
+.dragula-container {
+    min-height: 150px;
+    padding-bottom: 20px;
+    touch-action: none;
+}
+
+
+.gu-mirror {
+    position: fixed !important;
+    margin: 0 !important;
+    z-index: 9999 !important;
+    opacity: 0.9;
+
+    background-color: #fff;
+    border-radius: 8px;
+    border-left: 5px solid #002060 !important;
+
+    transform: scale(1.02);
+
+    box-shadow: 0 15px 30px rgba(0, 32, 96, 0.3) !important;
+
+    pointer-events: none;
+    cursor: grabbing !important;
+}
+
+
+.gu-mirror .dropdown {
+    display: none;
+}
+
+
+.gu-transit {
+    opacity: 0.6;
+    background-color: #eef4ff !important;
+    border: 2px dashed #00509d !important;
+    box-shadow: none !important;
+    transform: scale(0.98);
+    border-radius: 8px;
+    color: transparent;
+}
+
+.gu-transit * {
+    opacity: 0;
+}
+
+
+.taskkarte {
+    cursor: grab;
+    user-select: none;
+}
+
+.taskkarte:active {
+    cursor: grabbing;
+}
+
+body.gu-unselectable {
+    cursor: grabbing !important;
+}
