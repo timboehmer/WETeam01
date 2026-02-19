@@ -321,3 +321,155 @@ nav.navbar {
 body.gu-unselectable {
     cursor: grabbing !important;
 }
+
+/* --- Dashboard Cards --- */
+.dashboard-cards {
+    margin-top: 2rem;
+}
+
+.dash-card {
+    background: #ffffff;
+    border: none;
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 280px;
+    box-shadow: 0 4px 20px rgba(0, 32, 96, 0.08);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+}
+
+.dash-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    border-radius: 16px 16px 0 0;
+    transition: height 0.4s ease;
+}
+
+.dash-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 32, 96, 0.18);
+    text-decoration: none;
+    color: inherit;
+}
+
+.dash-card:hover::before {
+    height: 6px;
+}
+
+.dash-card:hover .dash-icon {
+    transform: scale(1.1);
+}
+
+.dash-card:hover .dash-btn {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Icon Boxes */
+.dash-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Card Colors */
+.dash-card.card-tasks::before { background: linear-gradient(90deg, #00509d, #0077cc); }
+.dash-card.card-tasks .dash-icon { background: linear-gradient(135deg, #e8f0fe, #d2e3fc); color: #00509d; }
+
+.dash-card.card-boards::before { background: linear-gradient(90deg, #6c5ce7, #a855f7); }
+.dash-card.card-boards .dash-icon { background: linear-gradient(135deg, #f0ecff, #e4dcfd); color: #6c5ce7; }
+
+.dash-card.card-spalten::before { background: linear-gradient(90deg, #00b894, #00cec9); }
+.dash-card.card-spalten .dash-icon { background: linear-gradient(135deg, #e6faf5, #d1f5ee); color: #00b894; }
+
+.dash-card.card-personen::before { background: linear-gradient(90deg, #e17055, #fd79a8); }
+.dash-card.card-personen .dash-icon { background: linear-gradient(135deg, #fde8e4, #fdd5d5); color: #e17055; }
+
+.dash-card.card-taskarten::before { background: linear-gradient(90deg, #fdcb6e, #f39c12); }
+.dash-card.card-taskarten .dash-icon { background: linear-gradient(135deg, #fef9e7, #fdebd0); color: #f39c12; }
+
+/* Card Text */
+.dash-card h3 {
+    font-weight: 700;
+    font-size: 1.35rem;
+    color: #1a1a2e;
+    margin-bottom: 0.5rem;
+    border: none;
+    padding: 0;
+}
+
+.dash-card .dash-desc {
+    font-size: 0.95rem;
+    color: #6b778c;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+/* Card Button */
+.dash-btn {
+    padding: 0.6rem 1.8rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: none;
+    color: white;
+    letter-spacing: 0.02em;
+    opacity: 0.85;
+    transform: translateY(5px);
+    transition: all 0.4s ease;
+}
+
+.card-tasks .dash-btn { background: linear-gradient(135deg, #00509d, #0077cc); }
+.card-boards .dash-btn { background: linear-gradient(135deg, #6c5ce7, #a855f7); }
+.card-spalten .dash-btn { background: linear-gradient(135deg, #00b894, #00cec9); }
+.card-personen .dash-btn { background: linear-gradient(135deg, #e17055, #fd79a8); }
+.card-taskarten .dash-btn { background: linear-gradient(135deg, #fdcb6e, #f39c12); }
+
+/* Section Label */
+.section-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #a0aec0;
+    margin-bottom: 1rem;
+}
+
+/* Slide-Up Animation */
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.dash-card { animation: slideUp 0.6s ease forwards; }
+.dash-card:nth-child(1) { animation-delay: 0.05s; }
+.dash-card:nth-child(2) { animation-delay: 0.1s; }
+.dash-card:nth-child(3) { animation-delay: 0.15s; }
+
+.anim-delay-1 { animation: slideUp 0.6s ease forwards; animation-delay: 0.2s; opacity: 0; }
+.anim-delay-2 { animation: slideUp 0.6s ease forwards; animation-delay: 0.25s; opacity: 0; }
+
+@media (max-width: 768px) {
+    .dash-card { min-height: 220px; padding: 1.8rem 1.5rem; }
+    .dash-icon { width: 65px; height: 65px; font-size: 1.6rem; }
+}
+

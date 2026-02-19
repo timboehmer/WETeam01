@@ -207,16 +207,22 @@ class Tasks extends Home
 
     public function postSubmittaskboard()
     {
-        $tasksid = $this->request->getPost('tasksid');
-        $targetspaltenid = $this->request->getPost('targetspaltenid');
+        $taskIds   = $this->request->getPost('taskIds');
+        $spaltenid = $this->request->getPost('spaltenid');
 
-        if ($tasksid && $targetspaltenid) {
-            $this->TasksModel->moveTask($tasksid, $targetspaltenid);
+        if (!empty($taskIds) && is_array($taskIds)) {
+            foreach ($taskIds as $position => $taskId) {
+                $this->TasksModel->updateTaskPosition($taskId, $spaltenid, $position + 1);
+            }
+        }
 
-            return json_encode(['success' => true, 'msg' => 'Task verschoben']);
-        }
-        else {
-            return json_encode(['success' => false, 'msg' => 'Fehlerhafte Daten']);
-        }
+        return $this->response->setJSON(['status' => 'ok']);
     }
+
+
+
+
+
+
+
 }

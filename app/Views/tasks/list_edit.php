@@ -20,13 +20,10 @@
                             <?= esc($board['board'])?>
                         </a>
                     </li>
-                    <?php
-    endforeach; ?>
-                    <?php
-else: ?>
+        <?php endforeach; ?>
+            <?php else: ?>
                     <li><span class="dropdown-item text-muted">Keine Boards vorhanden</span></li>
-                    <?php
-endif; ?>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>
@@ -68,7 +65,7 @@ else: ?>
                     <?php foreach ($tasks as $task): ?>
                     <?php if ($task['spaltenid'] == $spalte['id']): ?>
 
-                    <div class="card shadow-sm mb-3 taskkarte" tasksid="<?= $task['id']?>" sortid="<?= $task['id']?>"
+                    <div class="card shadow-sm mb-3 taskkarte" tasksid="<?= $task['id']?>" sortid="<?= $task['sortid']?>"
                         suchtext="<?= strtolower(esc($task['tasks']) . ' ' . esc($task['notizen']) . ' ' . esc($task['vorname'] ?? '') . ' ' . esc($task['name'] ?? ''))?>">
 
                         <div class="card-body p-3">
@@ -121,14 +118,11 @@ else: ?>
                                 <i class="fa-solid fa-bell"></i>
                                 <?= date('d.m.Y H:i', strtotime($task['erinnerungsdatum']))?>
                             </div>
-                            <?php
-                endif; ?>
+                            <?php endif; ?>
                         </div>
                     </div>
-                    <?php
-            endif; ?>
-                    <?php
-        endforeach; ?>
+                    <?php endif; ?>
+                    <?php endforeach; ?>
 
                 </div>
 
@@ -140,26 +134,24 @@ else: ?>
                 </div>
             </div>
         </div>
-        <?php
-    endforeach; ?>
+        <?php endforeach; ?>
 
-        <?php
-endif; ?>
+        <?php endif; ?>
 
     </div>
 </div>
 
 <script>
-    const baseurl = "<?= base_url()?>";
 
+    const baseurl = "<?= base_url() ?>";
     var update = true;
 
-    $(document).ready(function () {
+    $(document).ready(function() {
+
         onSucheChange();
 
-        // Dragula Initialisierung
         let drake = dragula({
-            isContainer: function (el) {
+            isContainer: function(el) {
                 return el.classList.contains('dragula-container');
             },
             moves: function (el, source, handle, sibling) {
@@ -168,9 +160,10 @@ endif; ?>
             accepts: function (el, target, source, sibling) {
                 return true;
             },
-            invalid: function (el, handle) {
+            invalid: function(el, handle) {
                 return false;
             },
+
             direction: 'vertical',
             copy: false,
             copySortSource: false,
@@ -182,47 +175,37 @@ endif; ?>
             slideFactorY: 0,
         });
 
-        drake.on('drag',  function (el, target, source, sibling) {
+        drake.on('drag', function(el, target, source, sibling) {
             update = false;
         });
-
-        drake.on('drop' , function (el, target, source, sibling) {
+        drake.on('drop', function(el, target, source, sibling) {
             update = true;
-
-            let sortId = (sibling) ? sibling.getAttribute("sortid") : 0;
-
-            updateTaskBoard(
-                el.getAttribute("tasksid"),
-                source.getAttribute("spaltenid"),
-                target.getAttribute("spaltenid"),
-                sortId
-            );
+            var taskIds = [];
+            target.querySelectorAll('.taskkarte').forEach(function(card) {
+                taskIds.push(card.getAttribute('tasksid'));
+            });
+            updateTaskBoard(taskIds, target.getAttribute('spaltenid'));
         });
+
+
     });
 
-    function updateTaskBoard(tasksid = 0, sourcespaltenid = 0, targetspaltenid = 0, taskssortid = 0) {
+    function updateTaskBoard(taskIds, spaltenid) {
         $.ajax({
             url: baseurl + '/tasks/submittaskboard',
             method: 'post',
             data: {
-                tasksid: tasksid,
-                sourcespaltenid: sourcespaltenid,
-                targetspaltenid: targetspaltenid,
-                taskssortid: taskssortid
+                taskIds: taskIds,
+                spaltenid: spaltenid
             },
             dataType: 'json',
-            success: function (response) {
-                console.log("Task verschoben");
-            },
-            error: function (xhr) {
-                 if (typeof bootbox !==  'undefined') {
-                    bootbox.alert("<span class='red'>Achtung:</span> Es ist ein Serverfehler aufgetreten: " + xhr.status + " " + xhr.statusText + "!");
-                } else {
-                    alert("Achtung: Serverfehler " + xhr.status);
-                }
+            success: function(response) {},
+            error: function(xhr) {
+                bootbox.alert("<span class='text-danger'><i class='bi bi-x-circle'></i> Serverfehler: " + xhr.status + " " + xhr.statusText + "</span>");
             }
         });
     }
+
 
     function onSucheChange() {
         var timeout = null;
@@ -230,7 +213,7 @@ endif; ?>
         function handleInputChange() {
             Suche();
         }
-        document.getElementById('suchetasks').addEventListener('inp ut', function () {
+        document.getElementById('suchetasks').addEventListener('input', function () {
             clearTimeout(timeout);
             timeout = setTimeout(handleInputChange, 500);
         });
@@ -251,5 +234,6 @@ endif; ?>
                     elemente[i].style.display = 'none';
                 }
             }
-     }
+        }
+    }
 </script>

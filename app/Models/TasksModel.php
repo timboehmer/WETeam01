@@ -24,7 +24,7 @@ class TasksModel extends Model
         IF ($task_id != NULL)
             $this->tasks->where('tasks.id', $task_id);
 
-        $this->tasks->orderBy('tasks.tasks');
+        $this->tasks->orderBy('tasks.sortid', 'ASC');
         $result = $this->tasks->get();
 
         if ($task_id != NULL)
@@ -69,14 +69,16 @@ class TasksModel extends Model
         $this->tasks->delete();
     }
 
-    public function moveTask($taskid, $targetspaltenid) {
+    public function updateTaskPosition($task_id, $spaltenid, $sortid)
+    {
         $this->tasks = $this->db->table('tasks');
-        $this->tasks->where('id', $taskid);
-
+        $this->tasks->where('tasks.id', $task_id);
         $this->tasks->update(array(
-            'spaltenid' => $targetspaltenid
+            'spaltenid' => $spaltenid,
+            'sortid'    => $sortid
         ));
     }
+
 
 
 }
